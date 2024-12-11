@@ -73,23 +73,34 @@ const CreatePost = () => {
 
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-gray-100">
       <Navbar />
-      <div className=' flex justify-center ' >
-
-
-        <div className='px-6 m-4 border  flex flex-col w-[70%] shadow-xl  md:px-[200px] mt-8'>
-          <h1 className='font-bold md:text-2xl text-2xl mt-3 flex justify-center '>Create a post</h1>
-          <form className='w-full flex flex-col space-y-4 md:space-y-8 mt-4'>
-            <input onChange={(e) => setTitle(e.target.value)} type="text" placeholder='Enter post title' className='px-4 py-2 outline-none' />
-            <input onChange={(e) => setFile(e.target.files[0])} type="file" className='px-4' />
-            <div className='flex flex-col'>
-              <div className='flex items-center space-x-4 md:space-x-8'>
-                <select name="" id="" value={cat} onChange={(e) => setCat(e.target.value)}>
-                  <option value="Artifical Intelligance">Artifical Intelligance</option>
+      <div className="flex-grow flex justify-center items-start py-8">
+        <div className="w-full max-w-4xl px-6 bg-white rounded-lg shadow-xl">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mt-8 mb-6">Create a post</h1>
+          <form className="space-y-6">
+            <input
+              type="text"
+              placeholder="Enter post title"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="file"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <select
+                  value={cat}
+                  onChange={(e) => setCat(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="Artificial Intelligence">Artificial Intelligence</option>
                   <option value="Big Data">Big Data</option>
                   <option value="Block Chain">Block Chain</option>
-                  <option value="Bussiness Management">Bussiness Management</option>
+                  <option value="Business Management">Business Management</option>
                   <option value="Cloud Computing">Cloud Computing</option>
                   <option value="Database">Database</option>
                   <option value="Cyber Security">Cyber Security</option>
@@ -99,24 +110,43 @@ const CreatePost = () => {
                   <option value="Operating System">Operating System</option>
                   <option value="Enterprise">Enterprise</option>
                 </select>
-                {/* <input className='px-4 py-2 outline-none' placeholder='Enter post category' type="text"/> */}
-                <div onClick={addCategory} className='bg-black text-white px-4 py-2 font-semibold cursor-pointer'>Add</div>
+                <button
+                  type="button"
+                  onClick={addCategory}
+                  className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
+                >
+                  Add
+                </button>
               </div>
-
-              {/* categories */}
-              <div className='flex px-4 mt-3'>
+              <div className="flex flex-wrap gap-2">
                 {cats?.map((c, i) => (
-                  <div key={i} className='flex justify-center items-center space-x-2 mr-4 bg-gray-200 px-2 py-1 rounded-md'>
-                    <p>{c}</p>
-                    <p onClick={() => deleteCategory(i)} className='text-white bg-black rounded-full cursor-pointer p-1 text-sm'><ImCross /></p>
+                  <div key={i} className="flex items-center space-x-2 bg-gray-200 px-3 py-1 rounded-full">
+                    <span>{c}</span>
+                    <button
+                      type="button"
+                      onClick={() => deleteCategory(i)}
+                      className="text-gray-600 hover:text-gray-800"
+                    >
+                      <ImCross size={12} />
+                    </button>
                   </div>
                 ))}
-
-
               </div>
             </div>
-            <textarea onChange={(e) => setDesc(e.target.value)} rows={9} cols={30} className='px-4 py-2 outline-none' placeholder='Enter post description' />
-            <button onClick={handleCreate} className='bg-black  w-full md:w-[20%] mx-auto text-white font-semibold px-4 py-2 md:text-xl text-lg '>Create</button>
+            <textarea
+              rows={9}
+              placeholder="Enter post description"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => setDesc(e.target.value)}
+            />
+            <div className="flex justify-center">
+              <button
+                onClick={handleCreate}
+                className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300"
+              >
+                Create
+              </button>
+            </div>
           </form>
         </div>
       </div>

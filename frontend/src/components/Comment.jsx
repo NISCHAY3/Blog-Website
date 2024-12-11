@@ -12,6 +12,7 @@ const Comment = ({ c, post }) => {
     try {
       await axios.delete(URL + "/api/comments/" + id, { withCredentials: true })
       window.location.reload(true)
+
     }
     catch (err) {
       console.log(err)
@@ -22,20 +23,27 @@ const Comment = ({ c, post }) => {
   // console.log(post)
   // console.log(user)
   return (
-    <div className="px-2 py-2 bg-gray-200 w-[90vh] rounded-lg my-2">
+    <div className="bg-white rounded-lg shadow-md p-4 my-4">
       <div className="flex items-center justify-between">
-        <h3 className="font-bold text-gray-600">@{c.author}</h3>
-        <div className="flex justify-center items-center space-x-4">
-          <p>{new Date(c.updatedAt).toString().slice(3, 15)}</p>
-          {user?._id === c?.userId ?
-            <div className="flex items-center justify-center space-x-2">
-              <p className="cursor-pointer" onClick={() => deleteComment(c._id)}><MdDelete /></p>
-            </div> : ""}
-
+        <h3 className="font-semibold text-gray-700">@{c.author}</h3>
+        <div className="flex items-center space-x-4 text-sm text-gray-500">
+          <p>{new Date(c.updatedAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          })}</p>
+          {user?._id === c?.userId && (
+            <button
+              onClick={() => deleteComment(c._id)}
+              className="text-red-500 hover:text-red-700 transition duration-300"
+              aria-label="Delete comment"
+            >
+              <MdDelete size={18} />
+            </button>
+          )}
         </div>
       </div>
-      <p className="px-4 mt-2">{c.comment}</p>
-
+      <p className="mt-2 text-gray-600">{c.comment}</p>
     </div>
   )
 }

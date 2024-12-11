@@ -25,25 +25,55 @@ const Navbar = () => {
   const { user } = useContext(UserContext)
 
   return (
-    <div className="flex items-center justify-between px-6 md:px-[200px] py-4 bg-black text-white  ">
-      <h1 className="text-lg md:text-xl font-extrabold"><Link to="/">BlogoSphere </Link></h1>
-      {path === "/" && <div className="flex justify-center items-center space-x-0">
-        <input onChange={(e) => setPrompt(e.target.value)} className="outline-none px-3 text-black  bg-white rounded-l-xl" placeholder="Search a post" type="text" />
-        <p onClick={() => navigate(prompt ? "?search=" + prompt : navigate("/"))} className="cursor-pointer p-1 bg-white text-black  rounded-r-xl "><BsSearch /></p>
+    <div className="bg-gray-900 text-white shadow-md">
+      <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+        <h1 className="text-xl md:text-2xl font-extrabold">
+          <Link to="/" className="hover:text-blue-400 transition duration-300">BlogItAll</Link>
+        </h1>
 
-      </div>}
-      <div className="hidden md:flex items-center justify-center space-x-2 md:space-x-4">
-        {user ? <h3><Link to="/write">Write</Link></h3> : <h3><Link to="/login">Login</Link></h3>}
-        {user ? <div onClick={showMenu}>
-          <p className="cursor-pointer relative"><FaBars /></p>
-          {menu && <Menu />}
-        </div> : <h3><Link to="/register">Register</Link></h3>}
-      </div>
-      <div onClick={showMenu} className="md:hidden text-lg">
-        <p className="cursor-pointer relative"><FaBars /></p>
-        {menu && <Menu />}
-      </div>
+        {path === "/" && (
+          <div className="flex justify-center items-center">
+            <input
+              onChange={(e) => setPrompt(e.target.value)}
+              className="outline-none px-3 py-1 text-black bg-white rounded-l-md w-40 md:w-60"
+              placeholder="Search a post"
+              type="text"
+            />
+            <button
+              onClick={() => navigate(prompt ? "?search=" + prompt : "/")}
+              className="cursor-pointer p-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition duration-300"
+            >
+              <BsSearch />
+            </button>
+          </div>
+        )}
 
+        <div className="hidden md:flex items-center space-x-4">
+          {user ? (
+            <>
+              <Link to="/write" className="hover:text-blue-400 transition duration-300">Write</Link>
+              <div className="relative">
+                <button onClick={showMenu} className="cursor-pointer hover:text-blue-400 transition duration-300">
+                  <FaBars />
+                </button>
+                {menu && <Menu user={user} />}
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="hover:text-blue-400 transition duration-300">Login</Link>
+              <Link to="/register" className="hover:text-blue-400 transition duration-300">Register</Link>
+            </>
+          )}
+        </div>
+
+        <div className="md:hidden">
+          <button onClick={showMenu} className="text-lg cursor-pointer hover:text-blue-400 transition duration-300">
+            <FaBars />
+          </button>
+          {menu && <Menu user={user} />}
+        </div>
+      </div>
     </div>
   )
 }
